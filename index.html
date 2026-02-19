@@ -11,33 +11,43 @@
 </head>
 <body>
 
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+
     <div class="main-wrapper">
         
         <header class="header no-print">
             <div class="brand-row">
-                <img src="sblak.png" alt="SBLAK Logo" class="logo">
+                <div class="logo-box">
+                    <img src="sblak.png" alt="SBLAK Logo" class="logo">
+                </div>
                 <div class="header-text">
-                    <p class="small-tag">✨ THE RESULTS ARE OUT ✨</p>
+                    <p class="small-tag">✨ GRAND FINALE ✨</p>
                     <h1>Creator Contest 2026</h1>
                     <p class="sub-text">Organised by <strong>Sri Balbhadralal Arun Kumar</strong></p>
                 </div>
-                <img src="tripixel.png" alt="TriPixel Logo" class="logo">
+                <div class="logo-box">
+                    <img src="tripixel.png" alt="TriPixel Logo" class="logo">
+                </div>
             </div>
         </header>
 
         <section class="search-container no-print">
-            <img src="contest.png" alt="Contest Badge" class="contest-badge">
+            <div class="badge-wrapper">
+                <img src="contest.png" alt="Contest Badge" class="contest-badge">
+            </div>
             
             <div class="search-card">
-                <h3>Check Your Scorecard</h3>
-                <p>Enter your Instagram Username to view result</p>
+                <h3>View Your Scorecard</h3>
+                <p>Enter your Instagram Username</p>
                 
                 <div class="input-group">
                     <span class="input-icon">@</span>
                     <input type="text" id="searchInput" placeholder="username" autocomplete="off">
                 </div>
                 
-                <button onclick="searchResult()" class="btn-search">View Result 🚀</button>
+                <button onclick="searchResult()" class="btn-search">Check Result 🚀</button>
             </div>
 
             <div id="errorMessage" class="error-msg" style="display: none;">
@@ -55,70 +65,44 @@
             <div class="certificate-content">
                 
                 <div class="cert-header">
-                    <div class="ch-left"><img src="sblak.png" alt="SBLAK"></div>
+                    <div class="ch-left"><img src="sblak.png" class="sheet-logo"></div>
                     <div class="ch-center">
                         <h2>OFFICIAL SCORECARD</h2>
                         <p>MASTER CREATOR CONTEST 2026</p>
                     </div>
-                    <div class="ch-right"><img src="tripixel.png" alt="TPM"></div>
+                    <div class="ch-right"><img src="tripixel.png" class="sheet-logo"></div>
                 </div>
 
                 <div class="profile-section">
                     <div class="ps-info">
                         <h3 id="r_name">Creator Name</h3>
-                        <p class="handle">@<span id="r_id">username</span></p>
+                        <p class="handle" id="r_id">@username</p>
                         <span class="batch-tag" id="r_batch">Batch B1</span>
                     </div>
                     <div class="ps-rank">
                         <div class="rank-badge">
-                            <span>AIR RANK</span>
-                            <strong id="r_rank">#1</strong>
+                            <span>CONTEST RANK</span> <strong id="r_rank">#1</strong>
                         </div>
                     </div>
                 </div>
 
                 <div class="scores-list">
-                    
                     <div class="score-row">
-                        <div class="sl-labels">
-                            <span>Reach Score (40)</span>
-                            <strong id="r_reach">0</strong>
-                        </div>
-                        <div class="progress-track">
-                            <div class="progress-bar p-blue" id="bar_reach"></div>
-                        </div>
+                        <div class="sl-labels"><span>Reach Score (40)</span><strong id="r_reach">0</strong></div>
+                        <div class="progress-track"><div class="progress-bar p-blue" id="bar_reach"></div></div>
                     </div>
-
                     <div class="score-row">
-                        <div class="sl-labels">
-                            <span>Engagement Score (30)</span>
-                            <strong id="r_engagement">0</strong>
-                        </div>
-                        <div class="progress-track">
-                            <div class="progress-bar p-pink" id="bar_engagement"></div>
-                        </div>
+                        <div class="sl-labels"><span>Engagement Score (30)</span><strong id="r_engagement">0</strong></div>
+                        <div class="progress-track"><div class="progress-bar p-pink" id="bar_engagement"></div></div>
                     </div>
-
                     <div class="score-row">
-                        <div class="sl-labels">
-                            <span>Creativity Score (20)</span>
-                            <strong id="r_creativity">0</strong>
-                        </div>
-                        <div class="progress-track">
-                            <div class="progress-bar p-green" id="bar_creativity"></div>
-                        </div>
+                        <div class="sl-labels"><span>Creativity Score (20)</span><strong id="r_creativity">0</strong></div>
+                        <div class="progress-track"><div class="progress-bar p-green" id="bar_creativity"></div></div>
                     </div>
-
                     <div class="score-row">
-                        <div class="sl-labels">
-                            <span>Discipline Score (10)</span>
-                            <strong id="r_discipline">0</strong>
-                        </div>
-                        <div class="progress-track">
-                            <div class="progress-bar p-gold" id="bar_discipline"></div>
-                        </div>
+                        <div class="sl-labels"><span>Discipline Score (10)</span><strong id="r_discipline">0</strong></div>
+                        <div class="progress-track"><div class="progress-bar p-gold" id="bar_discipline"></div></div>
                     </div>
-
                 </div>
 
                 <div class="total-score-box">
@@ -127,29 +111,20 @@
                 </div>
 
                 <div class="cert-footer">
-                    <div class="stat-box">
-                        <i class="fas fa-play-circle"></i> Total Views: <span id="r_views">0</span>
-                    </div>
-                    <div class="stat-box">
-                        <i class="fas fa-heart"></i> Engagement: <span id="r_eng_total">0</span>
-                    </div>
+                    <div class="stat-box"><i class="fas fa-play-circle"></i> Total Views: <span id="r_views">0</span></div>
+                    <div class="stat-box"><i class="fas fa-heart"></i> Engagement: <span id="r_eng_total">0</span></div>
                 </div>
 
-                <div class="watermark-footer">
-                    Powered by <strong>TriPixel Media</strong>
-                </div>
-
+                <div class="watermark-footer">Powered by <strong>TriPixel Media</strong></div>
             </div>
         </div>
 
         <div id="actionArea" class="action-zone no-print" style="display: none;">
             <button onclick="window.print()" class="btn-download"><i class="fas fa-file-pdf"></i> Save / Print Result</button>
-            <p class="share-hint">Take a screenshot and tag <strong>@sri_balbhadralal</strong> for a repost! 📸</p>
         </div>
 
         <footer class="main-footer no-print">
-            <p>Need Help? Call Helpline: <strong>+91 98765 43210</strong></p>
-            <p class="copyright">© 2026 Sri Balbhadralal Arun Kumar</p>
+            <p>© 2026 Sri Balbhadralal Arun Kumar</p>
         </footer>
 
     </div>
