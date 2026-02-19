@@ -1,71 +1,61 @@
 async function searchResult() {
-    const searchInput = document.getElementById('searchInput').value.trim();
+    const rawInput = document.getElementById('searchInput').value.trim();
     const resultSheet = document.getElementById('resultSheet');
+    const actionButtons = document.getElementById('actionButtons');
     const errorMessage = document.getElementById('errorMessage');
 
+    // Reset UI
     resultSheet.style.display = 'none';
+    actionButtons.style.display = 'none';
     errorMessage.style.display = 'none';
 
-    if (!searchInput) {
-        alert("Please enter your Instagram ID.");
+    if (!rawInput) {
+        alert("Please enter a Name or Instagram ID.");
         return;
     }
 
+    // Normalize input: Remove '@' and convert to lowercase for comparison
+    const searchTerm = rawInput.replace('@', '').toLowerCase();
+
     try {
-        const response = await fetch('data.json');
+        // Add timestamp to prevent caching issues
+        const response = await fetch('data.json?t=' + new Date().getTime());
         const data = await response.json();
 
-        // Find user by Instagram ID (case-insensitive)
-        const creator = data.find(item => 
-            item["Instagram ID"] && 
-            item["Instagram ID"].toString().toLowerCase().trim() === searchInput.toLowerCase()
-        );
+        // SEARCH LOGIC: Check matches in "Instagram ID" OR "Creator Name"
+        const creator = data.find(item => {
+            const idMatch = item["Instagram ID"] && item["Instagram ID"].toString().toLowerCase().trim() === searchTerm;
+            const nameMatch = item["Creator Name"] && item["Creator Name"].toString().toLowerCase().trim().includes(searchTerm);
+            
+            return idMatch || nameMatch;
+        });
 
         if (creator) {
-            // Header Info
+            // Fill Data
             document.getElementById('r_name').textContent = creator["Creator Name"] || "-";
             document.getElementById('r_id').textContent = "@" + creator["Instagram ID"];
-            document.getElementById('r_batch').textContent = creator["Batch No"] || "-";
+            document.getElementById('r_batch').textContent = creator["Batch No"] || "N/A";
+            document.getElementById('r_rank').textContent = "#" + (creator["Rank"] || "-");
 
-            // Main Scores
+            // Scores
             document.getElementById('r_reach').textContent = creator["Reach Score (40)"] || "0";
             document.getElementById('r_engagement').textContent = creator["Engagement Score (30)"] || "0";
             document.getElementById('r_creativity').textContent = creator["Creativity Score (20)"] || "0";
             document.getElementById('r_discipline').textContent = creator["Discipline Score (10)"] || "0";
-
-            // Final and Rank
             document.getElementById('r_final').textContent = creator["Final Score (100)"] || "0";
-            document.getElementById('r_rank').textContent = "#" + (creator["Rank"] || "-");
 
-            // Video 1 Stats
-            document.getElementById('v1_v').textContent = creator["V1 Views"] || "0";
-            document.getElementById('v1_l').textContent = creator["V1 Likes"] || "0";
-            document.getElementById('v1_c').textContent = creator["V1 Comments"] || "0";
-            document.getElementById('v1_s').textContent = creator["V1 Saves"] || "0";
-
-            // Video 2 Stats
-            document.getElementById('v2_v').textContent = creator["V2 Views"] || "0";
-            document.getElementById('v2_l').textContent = creator["V2 Likes"] || "0";
-            document.getElementById('v2_c').textContent = creator["V2 Comments"] || "0";
-            document.getElementById('v2_s').textContent = creator["V2 Saves"] || "0";
-
-            // Video 3 Stats
-            document.getElementById('v3_v').textContent = creator["V3 Views"] || "0";
-            document.getElementById('v3_l').textContent = creator["V3 Likes"] || "0";
-            document.getElementById('v3_c').textContent = creator["V3 Comments"] || "0";
-            document.getElementById('v3_s').textContent = creator["V3 Saves"] || "0";
-
-            // Totals
-            document.getElementById('r_tot_views').textContent = creator["Total Views"] || "0";
-            document.getElementById('r_tot_eng').textContent = creator["Total Engagement"] || "0";
-
+            // Show Result & Print Button
             resultSheet.style.display = 'block';
+            actionButtons.style.display = 'block';
+            
+            // Scroll to result for mobile users
+            resultSheet.scrollIntoView({ behavior: 'smooth' });
         } else {
             errorMessage.style.display = 'block';
         }
 
     } catch (error) {
-        console.error('Data Fetch Error:', error);
-        alert('System Error: Could not connect to the results database. Ensure data.json is uploaded properly.');
+        console.error('Error:', error);
+        alert('System Error: Could not load data.json.');
     }
 }
