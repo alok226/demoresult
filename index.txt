@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sri Balbhadralal Arun Kumar - Official Result Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="main-container">
+        <header class="portal-header">
+            <h1>SRI BALBHADRALAL ARUN KUMAR</h1>
+            <p class="portal-subtitle">Official Creator Contest Evaluation Portal 2026</p>
+        </header>
+
+        <div class="instructions-panel">
+            <h3>📌 Important Instructions</h3>
+            <ul>
+                <li>Enter your registered <strong>Instagram ID</strong> (e.g., creator_01) to fetch your scorecard.</li>
+                <li>Ensure there are no leading or trailing spaces in your ID.</li>
+                <li>The scores are strictly confidential and calculated based on jury evaluations and actual reel analytics.</li>
+            </ul>
+        </div>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Enter Instagram ID" autocomplete="off">
+                <button onclick="searchResult()">Get Result</button>
+            </div>
+            <div id="errorMessage" class="error-msg" style="display: none;">
+                ⚠ <strong>Record Not Found.</strong> Please verify your Instagram ID or contact administration if you believe this is an error.
+            </div>
+        </div>
+
+        <div id="resultSheet" class="marksheet-wrapper" style="display: none;">
+            <div class="marksheet-inner">
+                
+                <div class="ms-header">
+                    <h2>STATEMENT OF MARKS</h2>
+                    <p>MASTER CREATOR CONTEST</p>
+                </div>
+
+                <div class="candidate-info">
+                    <table class="info-table">
+                        <tr>
+                            <td class="label">Creator Name:</td>
+                            <td class="value" id="r_name"></td>
+                            <td class="label">Instagram ID:</td>
+                            <td class="value font-mono" id="r_id"></td>
+                        </tr>
+                        <tr>
+                            <td class="label">Batch Number:</td>
+                            <td class="value" id="r_batch"></td>
+                            <td class="label">Evaluation Status:</td>
+                            <td class="value status-pass">COMPLETED</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="score-container">
+                    <div class="score-breakdown">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Evaluation Criteria</th>
+                                    <th>Max Marks</th>
+                                    <th>Marks Awarded</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Reach Score</td>
+                                    <td>40</td>
+                                    <td class="highlight" id="r_reach"></td>
+                                </tr>
+                                <tr>
+                                    <td>Engagement Score</td>
+                                    <td>30</td>
+                                    <td class="highlight" id="r_engagement"></td>
+                                </tr>
+                                <tr>
+                                    <td>Creativity Score</td>
+                                    <td>20</td>
+                                    <td class="highlight" id="r_creativity"></td>
+                                </tr>
+                                <tr>
+                                    <td>Discipline Score</td>
+                                    <td>10</td>
+                                    <td class="highlight" id="r_discipline"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="final-result-box">
+                        <div class="result-item">
+                            <span class="res-title">Final Score</span>
+                            <span class="res-value big" id="r_final"></span>
+                            <span class="res-max">/ 100</span>
+                        </div>
+                        <div class="result-divider"></div>
+                        <div class="result-item">
+                            <span class="res-title">Contest Rank</span>
+                            <span class="res-value rank" id="r_rank"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-analytics">
+                    <h3>Detailed Video Analytics</h3>
+                    <table class="data-table small-text">
+                        <thead>
+                            <tr>
+                                <th>Submission</th>
+                                <th>Views</th>
+                                <th>Likes</th>
+                                <th>Comments</th>
+                                <th>Saves</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Video 1</td>
+                                <td id="v1_v"></td><td id="v1_l"></td><td id="v1_c"></td><td id="v1_s"></td>
+                            </tr>
+                            <tr>
+                                <td>Video 2</td>
+                                <td id="v2_v"></td><td id="v2_l"></td><td id="v2_c"></td><td id="v2_s"></td>
+                            </tr>
+                            <tr>
+                                <td>Video 3</td>
+                                <td id="v3_v"></td><td id="v3_l"></td><td id="v3_c"></td><td id="v3_s"></td>
+                            </tr>
+                            <tr class="total-row">
+                                <td>TOTAL</td>
+                                <td colspan="2">Total Views: <strong id="r_tot_views"></strong></td>
+                                <td colspan="2">Total Engagement: <strong id="r_tot_eng"></strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="official-notes">
+                    <p><strong>📝 DISCLAIMER & WARNINGS:</strong></p>
+                    <ol>
+                        <li>This is a computer-generated statement of marks and does not require a physical signature.</li>
+                        <li>Any unauthorized alteration, forgery, or tampering with this digital document is strictly prohibited and will result in immediate disqualification.</li>
+                        <li>In case of any discrepancy in the calculated marks, creators must contact the contest administration panel within 48 hours of result publication.</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

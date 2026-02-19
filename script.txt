@@ -1,0 +1,71 @@
+async function searchResult() {
+    const searchInput = document.getElementById('searchInput').value.trim();
+    const resultSheet = document.getElementById('resultSheet');
+    const errorMessage = document.getElementById('errorMessage');
+
+    resultSheet.style.display = 'none';
+    errorMessage.style.display = 'none';
+
+    if (!searchInput) {
+        alert("Please enter your Instagram ID.");
+        return;
+    }
+
+    try {
+        const response = await fetch('data.json');
+        const data = await response.json();
+
+        // Find user by Instagram ID (case-insensitive)
+        const creator = data.find(item => 
+            item["Instagram ID"] && 
+            item["Instagram ID"].toString().toLowerCase().trim() === searchInput.toLowerCase()
+        );
+
+        if (creator) {
+            // Header Info
+            document.getElementById('r_name').textContent = creator["Creator Name"] || "-";
+            document.getElementById('r_id').textContent = "@" + creator["Instagram ID"];
+            document.getElementById('r_batch').textContent = creator["Batch No"] || "-";
+
+            // Main Scores
+            document.getElementById('r_reach').textContent = creator["Reach Score (40)"] || "0";
+            document.getElementById('r_engagement').textContent = creator["Engagement Score (30)"] || "0";
+            document.getElementById('r_creativity').textContent = creator["Creativity Score (20)"] || "0";
+            document.getElementById('r_discipline').textContent = creator["Discipline Score (10)"] || "0";
+
+            // Final and Rank
+            document.getElementById('r_final').textContent = creator["Final Score (100)"] || "0";
+            document.getElementById('r_rank').textContent = "#" + (creator["Rank"] || "-");
+
+            // Video 1 Stats
+            document.getElementById('v1_v').textContent = creator["V1 Views"] || "0";
+            document.getElementById('v1_l').textContent = creator["V1 Likes"] || "0";
+            document.getElementById('v1_c').textContent = creator["V1 Comments"] || "0";
+            document.getElementById('v1_s').textContent = creator["V1 Saves"] || "0";
+
+            // Video 2 Stats
+            document.getElementById('v2_v').textContent = creator["V2 Views"] || "0";
+            document.getElementById('v2_l').textContent = creator["V2 Likes"] || "0";
+            document.getElementById('v2_c').textContent = creator["V2 Comments"] || "0";
+            document.getElementById('v2_s').textContent = creator["V2 Saves"] || "0";
+
+            // Video 3 Stats
+            document.getElementById('v3_v').textContent = creator["V3 Views"] || "0";
+            document.getElementById('v3_l').textContent = creator["V3 Likes"] || "0";
+            document.getElementById('v3_c').textContent = creator["V3 Comments"] || "0";
+            document.getElementById('v3_s').textContent = creator["V3 Saves"] || "0";
+
+            // Totals
+            document.getElementById('r_tot_views').textContent = creator["Total Views"] || "0";
+            document.getElementById('r_tot_eng').textContent = creator["Total Engagement"] || "0";
+
+            resultSheet.style.display = 'block';
+        } else {
+            errorMessage.style.display = 'block';
+        }
+
+    } catch (error) {
+        console.error('Data Fetch Error:', error);
+        alert('System Error: Could not connect to the results database. Ensure data.json is uploaded properly.');
+    }
+}
